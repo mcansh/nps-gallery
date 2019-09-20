@@ -27,36 +27,24 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container
-        css={{
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-        }}
+      <div
+        css={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
       >
         <GlobalStyle />
-        <div
-          css={{
-            padding: 16,
-          }}
-        >
+        <header css={{ padding: 16 }}>
           <Link href="/">
             <a>NPS Gallery</a>
           </Link>
-        </div>
-        <div css={{ flex: '1 1 auto' }}>{children}</div>
-        <div
-          css={{
-            padding: 16,
-          }}
-        >
+        </header>
+        <Container css={{ flex: '1 1 auto' }}>{children}</Container>
+        <footer css={{ padding: 16 }}>
           Data from the{' '}
           <a href="https://www.nps.gov/subjects/digital/nps-data-api.htm">
             NPS API
           </a>
           .
-        </div>
-      </Container>
+        </footer>
+      </div>
     </ThemeProvider>
   );
 };
