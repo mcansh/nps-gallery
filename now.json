@@ -2,6 +2,6 @@
   "name": "nps-gallery",
   "version": 2,
   "env": {
-    "NPS_KEY": "@nps-key"
+    "NPS_KEY": "@nps_key"
   }
 }
