@@ -14,10 +14,8 @@ const Index: NextPage = () => (
       css={{
         display: 'grid',
         gridGap: 16,
-        gridTemplateColumns: 'repeat(6, 1fr)',
-        // '@media screen and (min-width: 40em)': {
-        //   gridTemplateColumns: 'repeat(4, 1fr)',
-        // },
+        gridTemplateColumns: 'repeat(auto-fill, minmax(125px, 1fr))',
+        maxWidth: 'inherit',
       }}
     >
       {Object.entries(states).map(([code, name]) => (
@@ -45,6 +43,7 @@ const Index: NextPage = () => (
               font-size: 1.4rem;
               line-height: normal;
               text-decoration: none;
+              text-transform: uppercase;
             `}
           >
             {name}

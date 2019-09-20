@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     background: #303030;
     color: white;
+    letter-spacing: 0.4px;
   }
 
 `;
