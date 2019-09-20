@@ -3,5 +3,29 @@
   "version": 2,
   "env": {
     "NPS_KEY": "@nps_key"
-  }
+  },
+  "routes": [
+    {
+      "src": "^/(manifest.webmanifest|manifest.json)$",
+      "dest": "/manifest.webmanifest",
+      "headers": {
+        "Content-Type": "application/manifest+json",
+        "Cache-Control": "public, max-age=43200, immutable"
+      }
+    },
+    {
+      "src": "/sw.js",
+      "dest": "/_next/static/sw.js",
+      "headers": {
+        "Cache-Control": "max-age=0",
+        "Service-Worker-Allowed": "/"
+      }
+    },
+    {
+      "src": "/_next(/static/(?:[^/]+/pages|chunks|runtime)/.+)",
+      "headers": {
+        "Cache-Control": "immutable,max-age=31536000"
+      }
+    }
+  ]
 }
