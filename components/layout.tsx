@@ -1,11 +1,56 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
-
-import { Container } from './styles/container';
 
 import theme from '~/config';
 import GlobalStyle from '~/components/styles/global-style';
+import { Container } from '~/components/styles/container';
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  ${Container} {
+    margin-top: 2.4rem;
+    margin-bottom: 2.4rem;
+    flex: 1 1 auto;
+  }
+
+  header {
+    background: #424242;
+    height: 5.6rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1.6rem;
+
+    a {
+      text-transform: uppercase;
+      border-radius: 0.4rem;
+      min-width: 6.4rem;
+      height: 3.6rem;
+      padding: 0 1.6rem;
+      font-size: 1.4rem;
+      color: white;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.24);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  footer {
+    font-size: 1.6rem;
+    padding: 1.6rem;
+    background: #212121;
+
+    a {
+      color: #2196f3;
+    }
+  }
+`;
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -27,24 +72,24 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div
-        css={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}
-      >
+      <Wrapper>
         <GlobalStyle />
-        <header css={{ padding: 16 }}>
+        <header>
           <Link href="/">
-            <a>NPS Gallery</a>
+            <a>
+              <span>NPS Gallery</span>
+            </a>
           </Link>
         </header>
-        <Container css={{ flex: '1 1 auto' }}>{children}</Container>
-        <footer css={{ padding: 16 }}>
+        <Container>{children}</Container>
+        <footer>
           Data from the{' '}
           <a href="https://www.nps.gov/subjects/digital/nps-data-api.htm">
             NPS API
           </a>
           .
         </footer>
-      </div>
+      </Wrapper>
     </ThemeProvider>
   );
 };
