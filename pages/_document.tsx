@@ -6,6 +6,7 @@ import Document, {
   DocumentContext,
 } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
+
 import CSP from '~/components/csp';
 
 export default class MyDocument extends Document {
