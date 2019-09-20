@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+
 import React from 'react';
 import { NextScript, DocumentProps } from 'next/document';
 
@@ -14,7 +15,7 @@ const CSP = (props: DocumentProps) => {
     'script-src': ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
     'connect-src': ["'self'", 'ws://localhost:*'],
     'style-src': ["'self'", "'unsafe-inline'"],
-    'img-src': ["'self'"],
+    'img-src': ["'self'", 'https://www.nps.gov'],
   };
 
   const csp = `${Object.entries(cspSettings)

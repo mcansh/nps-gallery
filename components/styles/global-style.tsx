@@ -15,6 +15,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: ${props => props.theme.fontStack};
     font-weight: 400;
+    background: #303030;
+    color: white;
   }
 
 `;

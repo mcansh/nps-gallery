@@ -6,22 +6,10 @@ module.exports = {
       typescript: {},
     },
   },
-  overrides: [
-    {
-      files: ['*.d.ts'],
-      rules: {
-        'spaced-comment': ['error', 'always', { markers: ['/'] }],
-      },
-    },
-    {
-      files: ['*.js', '.*.js'],
-      rules: { '@typescript-eslint/no-var-requires': 'off' },
-    },
-  ],
   rules: {
+    'import/order': ['error', { 'newlines-between': 'always' }],
+    'react/prop-types': 'off',
     'arrow-body-style': ['error', 'as-needed'],
-    'promise/prefer-await-to-callbacks': 'off',
-    'promise/prefer-await-to-then': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -29,6 +17,7 @@ module.exports = {
           '__tests__/**/*',
           'test-utils/index.tsx',
           'types/jest-dom.d.ts',
+          'prettier.config.js',
         ],
       },
     ],

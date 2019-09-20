@@ -2,7 +2,6 @@ const withSourceMaps = require('@zeit/next-source-maps')();
 const withOffline = require('next-offline');
 
 const nextConfig = {
-  // service worker
   dontAutoRegisterSw: true,
   workboxOpts: {
     swDest: 'static/sw.js',
@@ -18,7 +17,6 @@ const nextConfig = {
     ],
   },
 
-  // actual next config
   crossOrigin: 'anonymous',
   target: 'serverless',
 };
