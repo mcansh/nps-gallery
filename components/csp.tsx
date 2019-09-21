@@ -13,7 +13,7 @@ const CSP = (props: DocumentProps) => {
   const cspSettings = {
     'default-src': ["'self'"],
     'script-src': ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
-    'connect-src': ["'self'", 'ws://localhost:*'],
+    'connect-src': ["'self'", 'ws://localhost:*', 'https://sentry.io'],
     'style-src': ["'self'", "'unsafe-inline'"],
     'img-src': ["'self'", 'https://www.nps.gov'],
   };
