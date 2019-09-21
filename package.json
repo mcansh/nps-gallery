@@ -14,7 +14,7 @@
     "lint": "eslint ./ --ext .js,.ts,.tsx",
     "lint:css": "stylelint './**/*.js' './**/*.jsx' './**/*.tsx' './**/*.ts'",
     "test": "jest",
-    "validate": "yarn lint && yarn lint:css && yarn type-check && yarn test",
+    "validate": "npm-run-all --parallel lint lint:css type-check test",
     "analyze": "ANALYZE=true yarn build"
   },
   "husky": {
@@ -73,6 +73,7 @@
     "eslint-plugin-you-dont-need-lodash-underscore": "6.7.0",
     "husky": "3.0.5",
     "lint-staged": "9.2.5",
+    "npm-run-all": "4.1.5",
     "stylelint": "11.0.0",
     "stylelint-config-recommended": "3.0.0",
     "stylelint-config-styled-components": "0.1.1",
