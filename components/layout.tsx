@@ -11,10 +11,14 @@ const Wrapper = styled.div`
   flex-direction: column;
   min-height: 100vh;
 
-  ${Container} {
-    margin-top: 2.4rem;
-    margin-bottom: 2.4rem;
-    flex: 1 1 auto;
+  footer {
+    font-size: 1.6rem;
+    padding: 1.6rem;
+    background: #212121;
+
+    a {
+      color: #2196f3;
+    }
   }
 
   header {
@@ -23,6 +27,13 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     padding: 0 1.6rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+    z-index: 1;
 
     a {
       text-transform: uppercase;
@@ -33,21 +44,13 @@ const Wrapper = styled.div`
       font-size: 1.4rem;
       color: white;
       text-decoration: none;
-      background: rgba(255, 255, 255, 0.24);
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
-    }
-  }
-
-  footer {
-    font-size: 1.6rem;
-    padding: 1.6rem;
-    background: #212121;
-
-    a {
-      color: #2196f3;
+      &:hover {
+        background: rgba(255, 255, 255, 0.24);
+      }
     }
   }
 `;
@@ -81,7 +84,16 @@ const Layout = ({ children }: LayoutProps) => {
             </a>
           </Link>
         </header>
-        <Container>{children}</Container>
+        <Container
+          css={`
+            width: 100%;
+            flex: 1 1 auto;
+            margin-top: 8rem;
+            margin-bottom: 2.4rem;
+          `}
+        >
+          {children}
+        </Container>
         <footer>
           Data from the{' '}
           <a href="https://www.nps.gov/subjects/digital/nps-data-api.htm">

@@ -11,12 +11,11 @@ const Index: NextPage = () => (
       <title>NPS Gallery</title>
     </Head>
     <div
-      css={{
-        display: 'grid',
-        gridGap: 16,
-        gridTemplateColumns: 'repeat(auto-fill, minmax(125px, 1fr))',
-        maxWidth: 'inherit',
-      }}
+      css={`
+        display: grid;
+        grid-gap: 1.6rem;
+        grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+      `}
     >
       {Object.entries(states).map(([code, name]) => (
         <Link
