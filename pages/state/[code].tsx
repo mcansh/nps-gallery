@@ -4,6 +4,7 @@ import { getBaseURL } from '@mcansh/next-now-base-url';
 import ky from 'ky-universal';
 import Head from 'next/head';
 
+import Link from '~/components/link';
 import { ParkData } from '~/pages/api/state/[code]';
 import { getFirstParam } from '~/utils/get-first-param';
 import { states } from '~/utils/states';
@@ -25,7 +26,7 @@ const State: NextPage<Props> = ({ state, data }) => (
       css={{
         display: 'grid',
         gridGap: 16,
-        gridTemplateColumns: 'repeat(3, 1fr)',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))',
         paddingTop: '1rem',
       }}
     >
@@ -37,6 +38,29 @@ const State: NextPage<Props> = ({ state, data }) => (
               borderRadius: '0.4rem',
               overflow: 'hidden',
               background: '#424242',
+              display: 'flex',
+              flexDirection: 'column',
+              '.content': {
+                display: 'flex',
+                flexDirection: 'column',
+                flexGrow: 1,
+                color: 'rgba(255, 255, 255, 0.7)',
+                padding: 16,
+                fontSize: 14,
+                lineHeight: 1.57,
+                p: { flexGrow: 1 },
+                a: {
+                  height: 36,
+                  minWidth: 64,
+                  fontSize: '1.4rem',
+                  color: 'white',
+                  display: 'flex',
+                  alignItems: 'center',
+                  textDecoration: 'none',
+                  textTransform: 'uppercase',
+                  marginTop: 8,
+                },
+              },
             }}
           >
             <div
@@ -49,7 +73,6 @@ const State: NextPage<Props> = ({ state, data }) => (
                   left: 0,
                   fontSize: '2.4rem',
                   fontWeight: 'normal',
-                  textAlign: 'center',
                   width: '100%',
                   padding: '0 1.6rem',
                 },
@@ -62,6 +85,7 @@ const State: NextPage<Props> = ({ state, data }) => (
                   css={{
                     height: 150,
                     objectFit: 'cover',
+                    objectPosition: 'bottom',
                     position: 'absolute',
                     top: 0,
                     left: 0,
@@ -72,9 +96,15 @@ const State: NextPage<Props> = ({ state, data }) => (
               <h2>{park.name}</h2>
             </div>
 
-            <p>{park.description}</p>
+            <div className="content">
+              <p>{park.description}</p>
 
-            {park.url && <a href={park.url}>Learn more</a>}
+              {park.url && (
+                <Link href={park.url}>
+                  <a>Learn more</a>
+                </Link>
+              )}
+            </div>
           </div>
         ))}
     </div>
