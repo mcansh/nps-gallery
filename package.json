@@ -14,7 +14,8 @@
     "lint": "eslint ./ --ext .js,.ts,.tsx",
     "lint:css": "stylelint './**/*.js' './**/*.jsx' './**/*.tsx' './**/*.ts'",
     "test": "jest",
-    "validate": "yarn lint && yarn lint:css && yarn type-check && yarn test"
+    "validate": "yarn lint && yarn lint:css && yarn type-check && yarn test",
+    "analyze": "ANALYZE=true yarn build"
   },
   "husky": {
     "hooks": {
@@ -32,7 +33,9 @@
   "dependencies": {
     "@mcansh/next-now-base-url": "1.1.0",
     "@mcansh/next-nprogress": "1.1.2",
+    "@next/bundle-analyzer": "9.0.6",
     "@sentry/browser": "5.6.3",
+    "@sentry/node": "5.6.2",
     "@zeit/next-source-maps": "0.0.4-canary.1",
     "babel-plugin-inline-react-svg": "1.1.0",
     "babel-plugin-root-import": "6.4.1",
@@ -40,7 +43,7 @@
     "jest": "24.9.0",
     "ky": "0.14.0",
     "ky-universal": "0.3.0",
-    "next": "9.0.6",
+    "next": "9.0.7-canary.4",
     "next-offline": "4.0.5",
     "next-server": "9.0.5",
     "react": "16.9.0",

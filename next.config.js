@@ -1,5 +1,8 @@
 const withSourceMaps = require('@zeit/next-source-maps')();
 const withOffline = require('next-offline');
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
 
 const nextConfig = {
   dontAutoRegisterSw: true,
@@ -8,7 +11,7 @@ const nextConfig = {
     runtimeCaching: [
       {
         handler: 'StaleWhileRevalidate',
-        urlPattern: /[.](webp|png|jpg|woff|woff2)/,
+        urlPattern: /[.](webp|png|jpg|svg|css|woff|woff2)/,
       },
       {
         handler: 'NetworkFirst',
@@ -19,6 +22,29 @@ const nextConfig = {
 
   crossOrigin: 'anonymous',
   target: 'serverless',
+  env: {
+    SENTRY_DSN: 'https://5ad7b8bd79054e27939e531708e19837@sentry.io/1757277',
+    VERSION: require('./package.json').version,
+  },
+  experimental: {
+    css: true,
+    modern: true,
+    publicDirectory: true,
+    granularChunks: true,
+  },
+  webpack: (config, { isServer, buildId, webpack }) => {
+    if (!isServer) {
+      config.resolve.alias['@sentry/node'] = '@sentry/browser';
+    }
+
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.BUILD_ID': JSON.stringify(buildId),
+      })
+    );
+
+    return config;
+  },
 };
 
-module.exports = withSourceMaps(withOffline(nextConfig));
+module.exports = withBundleAnalyzer(withSourceMaps(withOffline(nextConfig)));
