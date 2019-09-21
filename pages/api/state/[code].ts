@@ -54,7 +54,7 @@ export interface ParkData {
   fullName: string;
 }
 
-module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { code } = req.query;
 
   const url = `https://developer.nps.gov/api/v1/parks?stateCode=${code}&limit=100&fields=images&api_key=${NPS_KEY}`;
