@@ -59,14 +59,18 @@ module.exports = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const url = `https://developer.nps.gov/api/v1/parks?stateCode=${code}&limit=100&fields=images&api_key=${NPS_KEY}`;
 
-  const result: RawParkData = await ky(url).json();
+  try {
+    const parks: RawParkData = await ky(url).json();
 
-  const parkData: ParkData[] = result.data.map(p => {
-    if (p.images && p.images.length > 0) {
-      return { ...p, image: p.images[0] };
-    }
-    return p;
-  });
+    const parkData: ParkData[] = parks.data.map(p => {
+      if (p.images && p.images.length > 0) {
+        return { ...p, image: p.images[0] };
+      }
+      return p;
+    });
 
-  res.json(parkData);
+    res.json(parkData);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
 };
