@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { getBaseURL } from '@mcansh/next-now-base-url';
 import ky from 'ky-universal';
 import Head from 'next/head';
+import { decode } from 'he';
 
 import Link from '~/components/link';
 import { ParkData } from '~/pages/api/state/[code]';
@@ -93,7 +94,7 @@ const State: NextPage<Props> = ({ state, data }) => (
                   }}
                 />
               )}
-              <h2>{park.name}</h2>
+              <h2>{decode(park.name)}</h2>
             </div>
 
             <div className="content">
