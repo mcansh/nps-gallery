@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
+import Ink from 'react-ink';
 
 import theme from '~/config';
 import GlobalStyle from '~/components/styles/global-style';
@@ -48,6 +49,9 @@ const Wrapper = styled.div`
       justify-content: center;
       align-items: center;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: background 200ms ease;
       &:hover {
         background: rgba(255, 255, 255, 0.24);
       }
@@ -81,6 +85,7 @@ const Layout = ({ children }: LayoutProps) => {
           <Link href="/">
             <a>
               <span>NPS Gallery</span>
+              <Ink />
             </a>
           </Link>
         </header>

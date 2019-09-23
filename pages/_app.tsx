@@ -10,6 +10,7 @@ Sentry.init({
   dsn: process.env.SENTRY_DSN,
   release: `npsgallery@${process.env.VERSION}_${process.env.BUILD_ID}`,
   environment: process.env.NODE_ENV,
+  sampleRate: process.env.NODE_ENV === 'production' ? 1 : 0,
 });
 
 class MyApp extends App<{ err?: Error }> {
