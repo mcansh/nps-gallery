@@ -6,11 +6,17 @@
   },
   "routes": [
     {
+      "src": "/api/state/*",
+      "headers": {
+        "Cache-Control": "s-maxage=3600, stale-while-revalidate"
+      }
+    },
+    {
       "src": "^/(manifest.webmanifest|manifest.json)$",
       "dest": "/manifest.webmanifest",
       "headers": {
         "Content-Type": "application/manifest+json",
-        "Cache-Control": "public, max-age=43200, immutable"
+        "Cache-Control": "immutable, max-age=43200"
       }
     },
     {
@@ -24,7 +30,7 @@
     {
       "src": "/_next(/static/(?:[^/]+/pages|chunks|runtime)/.+)",
       "headers": {
-        "Cache-Control": "immutable,max-age=31536000"
+        "Cache-Control": "immutable, max-age=31536000"
       }
     }
   ]
