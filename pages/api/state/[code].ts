@@ -1,5 +1,7 @@
-import ky from 'ky-universal';
+import got from 'got';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+const map = new Map();
 
 const NPS_KEY = process.env.NPS_KEY;
 
@@ -60,9 +62,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const url = `https://developer.nps.gov/api/v1/parks?stateCode=${code}&limit=100&fields=images&api_key=${NPS_KEY}`;
 
   try {
-    const parks: RawParkData = await ky(url).json();
+    const parks: { body: RawParkData } = await got.get(url, {
+      cache: map,
+      json: true,
+    });
 
-    const parkData: ParkData[] = parks.data.map(p => {
+    const parkData: ParkData[] = parks.body.data.map(p => {
       if (p.images && p.images.length > 0) {
         return { ...p, image: p.images[0] };
       }
