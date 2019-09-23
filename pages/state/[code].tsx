@@ -67,7 +67,6 @@ const State: NextPage<Props> = ({ state, data }) => (
             <div
               css={{
                 position: 'relative',
-                height: 150,
                 h2: {
                   position: 'absolute',
                   bottom: '0.8rem',
@@ -83,10 +82,10 @@ const State: NextPage<Props> = ({ state, data }) => (
                 <SimpleImg
                   src={park.image.url}
                   alt={park.image.altText}
-                  style={{
-                    height: 150,
-                  }}
+                  height={200}
+                  placeholder={false}
                   imgStyle={{
+                    width: '100%',
                     objectFit: 'cover',
                     objectPosition: 'bottom',
                   }}
