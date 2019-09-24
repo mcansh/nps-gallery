@@ -68,6 +68,7 @@ const State: NextPage<Props> = ({ state, data }) => (
             <div
               css={{
                 position: 'relative',
+                height: 200,
                 h2: {
                   position: 'absolute',
                   bottom: '0.8rem',
