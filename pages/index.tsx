@@ -1,6 +1,7 @@
 import React from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
+import Ink from 'react-ink';
 
 import Link from '~/components/link';
 import { states } from '~/utils/states';
@@ -43,9 +44,12 @@ const Index: NextPage = () => (
               line-height: normal;
               text-decoration: none;
               text-transform: uppercase;
+              position: relative;
+              overflow: hidden;
             `}
           >
             {name}
+            <Ink />
           </a>
         </Link>
       ))}

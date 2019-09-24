@@ -4,6 +4,7 @@ import { getBaseURL } from '@mcansh/next-now-base-url';
 import ky from 'ky-universal';
 import Head from 'next/head';
 import { decode } from 'he';
+import { SimpleImg } from 'react-simple-img';
 
 import Link from '~/components/link';
 import { ParkData } from '~/pages/api/state/[code]';
@@ -67,7 +68,6 @@ const State: NextPage<Props> = ({ state, data }) => (
             <div
               css={{
                 position: 'relative',
-                height: 150,
                 h2: {
                   position: 'absolute',
                   bottom: '0.8rem',
@@ -80,17 +80,15 @@ const State: NextPage<Props> = ({ state, data }) => (
               }}
             >
               {park.image && (
-                <img
+                <SimpleImg
                   src={park.image.url}
                   alt={park.image.altText}
-                  css={{
-                    height: 150,
+                  height={200}
+                  placeholder={false}
+                  imgStyle={{
+                    width: '100%',
                     objectFit: 'cover',
                     objectPosition: 'bottom',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
                   }}
                 />
               )}
