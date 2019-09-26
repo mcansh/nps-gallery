@@ -1,11 +1,30 @@
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import Link from 'next/link';
+import Head from 'next/head';
 import Ink from 'react-ink';
 
 import theme from '~/config';
 import GlobalStyle from '~/components/styles/global-style';
 import { Container } from '~/components/styles/container';
+
+const iconSizes = [
+  16,
+  32,
+  57,
+  60,
+  72,
+  76,
+  96,
+  114,
+  120,
+  144,
+  152,
+  180,
+  192,
+  256,
+  512,
+];
 
 const Wrapper = styled.div`
   display: flex;
@@ -80,6 +99,21 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Wrapper>
+        <Head>
+          <link rel="manifest" href="/manifest.webmanifest" />
+          <meta name="theme-color" content="#009688" />
+          {iconSizes.map(icon => {
+            const size = `${icon}x${icon}`;
+            return (
+              <link
+                key={size}
+                rel="apple-touch-icon-precomposed"
+                sizes={size}
+                href={`/logo-${icon}x${icon}.png`}
+              />
+            );
+          })}
+        </Head>
         <GlobalStyle />
         <header>
           <Link href="/">

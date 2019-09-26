@@ -1,14 +1,14 @@
 {
-  "name": "App",
-  "short_name": "App",
-  "description": "App",
-  "background_color": "#113B55",
+  "name": "NPS Gallery",
+  "short_name": "NPS Gallery",
+  "description": "National Park Service Gallery",
+  "background_color": "#009688",
   "display": "standalone",
-  "theme_color": "#113B55",
+  "theme_color": "#009688",
   "icons": [
     {
       "src": "/logo.png",
-      "sizes": "72x72 96x96 128x128 144x144 256x256 512x512",
+      "sizes": "16x16 32x32 57x57 72x72 96x96 120x120 128x128 144x144 152x152 195x195 256x256 512x512",
       "type": "image/png"
     }
   ]
