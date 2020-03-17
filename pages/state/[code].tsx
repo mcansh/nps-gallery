@@ -1,14 +1,14 @@
 import React from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import { getBaseURL } from '@mcansh/next-now-base-url';
-import ky from 'ky-universal';
+import fetch from 'isomorphic-unfetch';
 import Head from 'next/head';
 import { decode } from 'he';
 import { SimpleImg } from 'react-simple-img';
 
 import { Link } from '~/components/link';
 import { ParkData } from '~/pages/api/state/[code]';
-import { stateKeys, stateNames } from '~/utils/states';
+import { findStateByName } from '~/utils/states';
 
 interface Props {
   state?: string;
@@ -116,20 +116,17 @@ export const getServerSideProps: GetServerSideProps = async ({
   const { code } = params;
   if (!code) return { statusCode: 404 };
 
-  const state =
-    stateKeys.find(
-      entry => entry.toLowerCase() === String(code).toLowerCase()
-    ) ??
-    stateNames.find(
-      entry => entry.toLowerCase() === String(code).toLowerCase()
-    );
+  const [stateCode, stateName] = findStateByName(String(code));
 
-  if (!state) return { statusCode: 404 };
+  if (!stateCode) return { statusCode: 404 };
 
   const base = getBaseURL(req);
 
-  const data: ParkData[] = await ky(`${base}/api/state/${state}`).json();
-  return { state: state[1], data };
+  const promise = await fetch(`${base}/api/state/${stateCode}`);
+
+  const data: ParkData[] = await promise.json();
+
+  return { props: { state: stateName, data } };
 };
 
 export default State;

@@ -8,6 +8,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 const pkgJSON = require('./package.json');
 
+const env = {};
+
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  require('dotenv').config();
+  env.NPS_KEY = process.env.NPS_KEY;
+}
+
 const nextConfig = {
   dontAutoRegisterSw: true,
   workboxOpts: {
@@ -30,6 +38,7 @@ const nextConfig = {
     SENTRY_DSN: 'https://5ad7b8bd79054e27939e531708e19837@sentry.io/1757277',
     SENTRY_RELEASE: `npsgallery@${pkgJSON.version}`,
     VERSION: pkgJSON.version,
+    ...env,
   },
   experimental: {
     modern: true,

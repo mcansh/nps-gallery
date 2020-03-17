@@ -53,5 +53,23 @@ const states = {
 
 const stateNames = Object.values(states);
 const stateKeys = Object.keys(states);
+const stateEntries = Object.entries(states);
 
-export { states, stateNames, stateKeys };
+function findStateByName(
+  input: string
+): [string, string] | [undefined, undefined] {
+  const state = stateEntries.find(([code, name]) => {
+    const lowerCaseInput = input.toLowerCase();
+    if (
+      lowerCaseInput === code.toLowerCase() ||
+      lowerCaseInput === name.toLowerCase()
+    ) {
+      return true;
+    }
+    return false;
+  });
+
+  return state ?? [undefined, undefined];
+}
+
+export { states, stateNames, stateKeys, findStateByName };
