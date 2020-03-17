@@ -14,44 +14,22 @@ function checkSameOrigin(url: UrlObject | string) {
   return href.hostname === domain;
 }
 
-const MyLink: React.FC<LinkProps> = ({
-  children,
-  href,
-  as,
-  replace,
-  scroll,
-  shallow,
-  passHref,
-  prefetch,
-}) => {
+type Props = LinkProps & { children: React.ReactElement };
+
+const MyLink = (nextLinkProps: Props) => {
+  const { href, children } = nextLinkProps;
   const isSameOrigin = checkSameOrigin(href);
 
-  const nextLinkProps = {
-    href,
-    as,
-    replace,
-    scroll,
-    shallow,
-    passHref,
-    prefetch,
-  };
-
   if (!isSameOrigin) {
-    return (
-      <>
-        {React.Children.map(children, child =>
-          React.cloneElement(child as any, {
-            href: typeof href === 'string' ? href : format(href),
-            target: '_blank',
-            rel: 'noopener external noreferrer',
-          })
-        )}
-      </>
-    );
+    const child = React.Children.only(children);
+    return React.cloneElement(child, {
+      href: typeof href === 'string' ? href : format(href),
+      target: '_blank',
+      rel: 'noopener external noreferrer',
+    });
   }
 
   return <Link {...nextLinkProps}>{children}</Link>;
 };
 
-export default MyLink;
-export { checkSameOrigin };
+export { checkSameOrigin, MyLink as Link };

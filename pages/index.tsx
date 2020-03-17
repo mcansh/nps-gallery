@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Ink from 'react-ink';
 
-import Link from '~/components/link';
+import { Link } from '~/components/link';
 import { states } from '~/utils/states';
 
 const Index: NextPage = () => (
