@@ -1,5 +1,5 @@
 import React from 'react';
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import { getBaseURL } from '@mcansh/next-now-base-url';
 import ky from 'ky-universal';
 import Head from 'next/head';
@@ -8,8 +8,7 @@ import { SimpleImg } from 'react-simple-img';
 
 import { Link } from '~/components/link';
 import { ParkData } from '~/pages/api/state/[code]';
-import { getFirstParam } from '~/utils/get-first-param';
-import { states } from '~/utils/states';
+import { stateKeys, stateNames } from '~/utils/states';
 
 interface Props {
   state?: string;
@@ -110,27 +109,27 @@ const State: NextPage<Props> = ({ state, data }) => (
   </>
 );
 
-State.getInitialProps = async ({ query, req }) => {
-  const { code } = query;
-
+export const getServerSideProps: GetServerSideProps = async ({
+  req,
+  params = {},
+}) => {
+  const { code } = params;
   if (!code) return { statusCode: 404 };
 
-  const state = Object.entries(states).find(
-    entry =>
-      entry[0].toLowerCase() === getFirstParam(code).toLowerCase() ||
-      entry[1].toLowerCase() === getFirstParam(code).toLowerCase()
-  );
+  const state =
+    stateKeys.find(
+      entry => entry.toLowerCase() === String(code).toLowerCase()
+    ) ??
+    stateNames.find(
+      entry => entry.toLowerCase() === String(code).toLowerCase()
+    );
 
   if (!state) return { statusCode: 404 };
 
   const base = getBaseURL(req);
 
-  try {
-    const data: ParkData[] = await ky(`${base}/api/state/${state[0]}`).json();
-    return { state: state[1], data };
-  } catch (error) {
-    throw new Error(error);
-  }
+  const data: ParkData[] = await ky(`${base}/api/state/${state}`).json();
+  return { state: state[1], data };
 };
 
 export default State;
