@@ -34,6 +34,32 @@ const nextConfig = {
   experimental: {
     modern: true,
     plugins: true,
+    rewrites: () => [{ source: '/sw.js', destination: '/_next/static/sw.js' }],
+    headers: () => [
+      {
+        source: '/api/state/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=3600, stale-while-revalidate',
+          },
+        ],
+      },
+      {
+        source: '/manifest.webmanifest',
+        headers: [
+          { key: 'Content-Type', value: 'application/manifest+json' },
+          { key: 'Cache-Control', value: 'immutable, max-age=43200' },
+        ],
+      },
+      {
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'max-age=0' },
+          { key: 'Service-Worker-Allowed', value: '/' },
+        ],
+      },
+    ],
   },
   webpack: (config, { isServer, buildId, webpack }) => {
     config.resolve.alias['~'] = path.resolve('./');
