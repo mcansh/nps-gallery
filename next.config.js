@@ -6,6 +6,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
+const pkgJSON = require('./package.json');
+
 const nextConfig = {
   dontAutoRegisterSw: true,
   workboxOpts: {
@@ -26,13 +28,12 @@ const nextConfig = {
   target: 'serverless',
   env: {
     SENTRY_DSN: 'https://5ad7b8bd79054e27939e531708e19837@sentry.io/1757277',
-    VERSION: require('./package.json').version,
+    SENTRY_RELEASE: `npsgallery@${pkgJSON.version}`,
+    VERSION: pkgJSON.version,
   },
   experimental: {
-    css: true,
     modern: true,
-    publicDirectory: true,
-    granularChunks: true,
+    plugins: true,
   },
   webpack: (config, { isServer, buildId, webpack }) => {
     config.resolve.alias['~'] = path.resolve('./');

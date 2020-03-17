@@ -10,7 +10,7 @@ import { ServerStyleSheet } from 'styled-components';
 import CSP from '~/components/csp';
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+  public static async getInitialProps(ctx: DocumentContext) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
 
@@ -33,12 +33,11 @@ export default class MyDocument extends Document {
     }
   }
 
-  render() {
+  public render() {
     return (
       <html lang="en">
         <Head>
           <CSP {...this.props} />
-          {this.props.styles}
         </Head>
         <body>
           <Main />
