@@ -64,7 +64,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const parks: { body: RawParkData } = await got.get(url, {
       cache: map,
-      json: true,
     });
 
     const parkData: ParkData[] = parks.body.data.map(p => {
