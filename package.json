@@ -13,6 +13,7 @@
     "type-check": "tsc",
     "lint": "eslint ./ --ext .js,.ts,.tsx",
     "lint:css": "stylelint './**/*.js' './**/*.jsx' './**/*.tsx' './**/*.ts'",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|less|scss|ts|tsx|md|graphql|mdx)\"",
     "test": "jest",
     "validate": "npm-run-all --parallel lint lint:css type-check test",
     "analyze": "ANALYZE=true yarn build"
