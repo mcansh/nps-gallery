@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { findStateByName } from '~/utils/states';

@@ -1,5 +1,3 @@
-const path = require('path');
-
 const withSourceMaps = require('@zeit/next-source-maps')();
 const withOffline = require('next-offline');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
@@ -71,8 +69,6 @@ const nextConfig = {
     ],
   },
   webpack: (config, { isServer, buildId, webpack }) => {
-    config.resolve.alias['~'] = path.resolve('./');
-
     if (!isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
