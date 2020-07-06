@@ -1,7 +1,6 @@
 import React from 'react';
 import { NextPage, GetServerSideProps } from 'next';
 import { getBaseURL } from '@mcansh/next-now-base-url';
-import fetch from 'isomorphic-unfetch';
 import Head from 'next/head';
 import { decode } from 'he';
 import { SimpleImg } from 'react-simple-img';
