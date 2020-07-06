@@ -27,8 +27,7 @@
     "*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "sh scripts/ts-precommit.bash",
-      "yarn lint:css",
-      "git add"
+      "yarn lint:css"
     ]
   },
   "dependencies": {
