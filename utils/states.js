@@ -78,7 +78,7 @@ function findStateByName(input) {
     return false;
   });
 
-  return state ?? [undefined, undefined];
+  return state || [undefined, undefined];
 }
 
 module.exports = {
