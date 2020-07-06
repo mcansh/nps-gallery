@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Ink from 'react-ink';
 
 import { Link } from '~/components/link';
-import { states } from '~/utils/states';
+import { stateEntrySlugs } from '~/utils/states';
 
 const Index: NextPage = () => (
   <>
@@ -18,13 +18,8 @@ const Index: NextPage = () => (
         grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
       `}
     >
-      {Object.entries(states).map(([code, name]) => (
-        <Link
-          key={name.toLowerCase()}
-          href="/state/[code]"
-          as={`/state/${code.toLowerCase()}`}
-          passHref
-        >
+      {stateEntrySlugs.map(([code, name]) => (
+        <Link key={name} href="/state/[code]" as={`/state/${code}`} passHref>
           <a
             css={`
               display: inline-block;

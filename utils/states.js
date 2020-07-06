@@ -1,3 +1,5 @@
+const slugify = require('slugify');
+
 const states = {
   AL: 'Alabama',
   AK: 'Alaska',
@@ -55,15 +57,17 @@ const stateNames = Object.values(states);
 const stateKeys = Object.keys(states);
 const stateEntries = Object.entries(states);
 
-function findStateByName(
-  input: string
-): [string, string] | [undefined, undefined] {
+const stateKeySlugs = stateKeys.map(state => slugify(state));
+const stateNameSlugs = stateNames.map(state => slugify(state));
+const stateEntrySlugs = stateEntries.map(([code, name]) => [
+  slugify(code),
+  slugify(name),
+]);
+
+function findStateByName(input) {
   const state = stateEntries.find(([code, name]) => {
-    const lowerCaseInput = input.toLowerCase();
-    if (
-      lowerCaseInput === code.toLowerCase() ||
-      lowerCaseInput === name.toLowerCase()
-    ) {
+    const inputSlug = slugify(input);
+    if (inputSlug === slugify(code) || inputSlug === slugify(name)) {
       return true;
     }
     return false;
@@ -72,4 +76,13 @@ function findStateByName(
   return state ?? [undefined, undefined];
 }
 
-export { states, stateNames, stateKeys, findStateByName };
+module.exports = {
+  states,
+  stateNames,
+  stateKeys,
+  stateEntries,
+  stateKeySlugs,
+  stateNameSlugs,
+  stateEntrySlugs,
+  findStateByName,
+};

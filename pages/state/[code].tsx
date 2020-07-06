@@ -5,7 +5,7 @@ import { decode } from 'he';
 import { SimpleImg } from 'react-simple-img';
 
 import { Link } from '~/components/link';
-import { findStateByName, stateKeys } from '~/utils/states';
+import { findStateByName, stateKeySlugs } from '~/utils/states';
 import { ParkData, getParks } from '~/utils/get-parks';
 import { getFirstParam } from '~/utils/get-first-param';
 
@@ -115,7 +115,7 @@ const State: NextPage<Props> = ({ state, data }) => (
 export const getStaticPaths: GetStaticPaths<MyUrlQuery> = () =>
   Promise.resolve({
     fallback: false,
-    paths: stateKeys.map(code => `/state/${code.toLowerCase()}`),
+    paths: stateKeySlugs.map(code => `/state/${code}`),
   });
 
 export const getStaticProps: GetStaticProps<Props, MyUrlQuery> = async ({
