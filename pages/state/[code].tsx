@@ -115,7 +115,7 @@ const State: NextPage<Props> = ({ state, data }) => (
 export const getStaticPaths: GetStaticPaths<MyUrlQuery> = () =>
   Promise.resolve({
     fallback: false,
-    paths: stateKeys.map(code => `/state/${code}`),
+    paths: stateKeys.map(code => `/state/${code.toLowerCase()}`),
   });
 
 export const getStaticProps: GetStaticProps<Props, MyUrlQuery> = async ({
