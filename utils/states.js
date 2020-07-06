@@ -57,17 +57,22 @@ const stateNames = Object.values(states);
 const stateKeys = Object.keys(states);
 const stateEntries = Object.entries(states);
 
-const stateKeySlugs = stateKeys.map(state => slugify(state));
-const stateNameSlugs = stateNames.map(state => slugify(state));
+const slugifyOptions = { lower: true };
+
+const stateKeySlugs = stateKeys.map(state => slugify(state, slugifyOptions));
+const stateNameSlugs = stateNames.map(state => slugify(state, slugifyOptions));
 const stateEntrySlugs = stateEntries.map(([code, name]) => [
-  slugify(code),
-  slugify(name),
+  slugify(code, slugifyOptions),
+  slugify(name, slugifyOptions),
 ]);
 
 function findStateByName(input) {
   const state = stateEntries.find(([code, name]) => {
-    const inputSlug = slugify(input);
-    if (inputSlug === slugify(code) || inputSlug === slugify(name)) {
+    const inputSlug = slugify(input, slugifyOptions);
+    if (
+      inputSlug === slugify(code, slugifyOptions) ||
+      inputSlug === slugify(name, slugifyOptions)
+    ) {
       return true;
     }
     return false;
