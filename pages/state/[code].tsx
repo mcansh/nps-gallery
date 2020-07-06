@@ -1,19 +1,23 @@
 import React from 'react';
-import { NextPage, GetServerSideProps } from 'next';
-import { getBaseURL } from '@mcansh/next-now-base-url';
+import { NextPage, GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import { decode } from 'he';
 import { SimpleImg } from 'react-simple-img';
 
 import { Link } from '~/components/link';
-import { ParkData } from '~/pages/api/state/[code]';
-import { findStateByName } from '~/utils/states';
+import { findStateByName, stateKeys } from '~/utils/states';
+import { ParkData, getParks } from '~/utils/get-parks';
+import { getFirstParam } from '~/utils/get-first-param';
 
 interface Props {
   state?: string;
   statusCode?: number;
   data?: ParkData[];
 }
+
+type MyUrlQuery = {
+  code: string;
+};
 
 const State: NextPage<Props> = ({ state, data }) => (
   <>
@@ -108,24 +112,27 @@ const State: NextPage<Props> = ({ state, data }) => (
   </>
 );
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req,
-  params = {},
+export const getStaticPaths: GetStaticPaths<MyUrlQuery> = () =>
+  Promise.resolve({
+    fallback: false,
+    paths: stateKeys.map(code => `/state/${code}`),
+  });
+
+export const getStaticProps: GetStaticProps<Props, MyUrlQuery> = async ({
+  params,
 }) => {
-  const { code } = params;
-  if (!code) return { statusCode: 404 };
-
-  const [stateCode, stateName] = findStateByName(String(code));
-
-  if (!stateCode) return { statusCode: 404 };
-
-  const base = getBaseURL(req);
-
-  const promise = await fetch(`${base}/api/state/${stateCode}`);
-
-  const data: ParkData[] = await promise.json();
-
-  return { props: { state: stateName, data } };
+  if (!params || !params.code) {
+    return { props: { statusCode: 404 }, unstable_revalidate: 1 };
+  }
+  const [stateCode, stateName] = findStateByName(getFirstParam(params.code));
+  if (!stateCode || !stateName) {
+    return { props: { statusCode: 404 }, unstable_revalidate: 1 };
+  }
+  const parkData = await getParks(stateCode);
+  return {
+    props: { state: stateName, data: parkData },
+    unstable_revalidate: 60 * 60 * 24, // 1 day
+  };
 };
 
 export default State;
